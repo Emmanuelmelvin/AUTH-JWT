@@ -1,6 +1,7 @@
 const express = require("express")
 const mongoose = require("mongoose")
 
+const authRoutes = require("./routes/authRoutes")
 const app = express()
 app.use(express.json())
 
@@ -19,3 +20,5 @@ mongoose
     app.get('/', (req, res)=> {
 
     })
+
+    app.use(authRoutes)

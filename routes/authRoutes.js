@@ -1,12 +1,10 @@
 const express = require('express')
-const router = eouter = express.Router()
+const router = express.Router()
+const authController = require("../controllers/authController")
 
-router.get('/signup',  (req, res) => {
-    
-})
 
-router.get('/signup',  (req, res) => {
-    
-})
+router.get('/signup',  authController.signupController)
+
+router.get('/signup',  authController.loginController)
 
 module.exports = router;
