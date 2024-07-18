@@ -17,7 +17,7 @@ mongoose
     })
     .catch((error) => {console.log(error)})
 
-    app.get('/', (req, res)=> {
+app.get('/', (req, res)=> {
         res.send("Active")
     })
 
