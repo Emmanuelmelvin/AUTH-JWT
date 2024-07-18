@@ -1,5 +1,4 @@
-const User = require("..models/userModel")
-
+const User = require("../models/userModel")
 
 exports.signupController = async (req, res) => {
     const { email, password } = req.body

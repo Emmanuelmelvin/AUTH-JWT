@@ -6,6 +6,7 @@ const app = express()
 
 //middlewares
 app.use(express.json())
+app.use(authRoutes)
 
 const mongoURI = "mongodb://localhost:27017"
 
@@ -15,10 +16,8 @@ mongoose
         console.log("mongo active!")
         app.listen(3000)
     })
-    .catch((error) => {console.log(error)})
+    .catch((error) => { console.log(error) })
 
-app.get('/', (req, res)=> {
-        res.send("Active")
-    })
-
-    app.use(authRoutes)
+app.get('/', (req, res) => {
+    res.send("Active")
+})
