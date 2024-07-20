@@ -21,3 +21,7 @@ mongoose
 app.get('/', (req, res) => {
     res.send("Active")
 })
+
+app.get('/set-cookies' , (req , res) => {
+    
+})
