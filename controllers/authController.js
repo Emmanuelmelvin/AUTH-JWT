@@ -52,5 +52,16 @@ exports.signupController = async (req, res) => {
 
 exports.loginController = async (req, res) => {
     const { email, password } = req.body
+    try{
+        const user = await  User.login(email , password)
+        res.status(200).json({user:  user._id})
+        
+    }catch (error){
+        const errorObjext = handleErrors(error)
+        res.status(401).json({
+            status: "failed",
+            body: errorObjext
+        })
+    }
 
 }
