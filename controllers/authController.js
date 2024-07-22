@@ -1,5 +1,6 @@
 const User = require("../models/userModel")
 const jwt = require("jsonwebtoken")
+const { secretPhrase } = require('../security/jwtSecretPhrase')
 
 const handleErrors = (err) => {
     let error = { email: "", password: "" }
@@ -39,7 +40,7 @@ const handleErrors = (err) => {
 
 const maxAge = 3 * 24 * 60 * 60
 const createToken = (id) => {
-    return jwt.sign({ id }, 'meme', {
+    return jwt.sign({ id }, secretPhrase , {
         expiresIn: maxAge
     })
 }
@@ -51,7 +52,7 @@ exports.signupController = async (req, res) => {
         const user = await User.create({ email, password })
         const token = createToken(user._id)
         res.cookie('jwt', token, {
-            httpPnly: true,
+            httpOnly: true,
             maxAge: maxAge * 1000
         })
         res.status(201).json({
@@ -86,4 +87,12 @@ exports.loginController = async (req, res) => {
         })
     }
 
+}
+
+exports.logoutController = (req , res) => {
+    res.cookie('jwt' ,  ' ' , { maxAge: 1 })
+    res.status(200).json({
+        status: 'success'
+    })
+    console.log('User logged out')
 }

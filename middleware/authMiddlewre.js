@@ -1,12 +1,13 @@
-const jwt =require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
+const { secretPhrase } = require('../security/jwtSecretPhrase')
 
 const requireAuth = async  (req,  res , next)  => {
 
     const token = req.cookies.jwt
 
-    //checkifit exists and isverified
+    //check if it exists and isverified
     if(token){
-        jwt.verify(token,  'meme' , (error , decodedToken) => {
+        jwt.verify(token , secretPhrase , (error , decodedToken) => {
             if(error) {
                 console.log('unauthorized user')
                 res.send('unauthorized')
