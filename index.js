@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser")
 
 const authRoutes = require("./routes/authRoutes")
 const { requireAuth } = require("./middleware/authMiddlewre")
+const checkUser = require("./middleware/checkUser")
 const app = express()
 
 //middlewares
@@ -53,3 +54,4 @@ app.get('/auth' , requireAuth , (req , res) => {
     res.send('User in!')
     console.log("User in")
 })
+app.get('*' , checkUser)
