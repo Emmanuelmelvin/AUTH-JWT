@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const cookieParser = require("cookie-parser")
 
 const authRoutes = require("./routes/authRoutes")
+const { requireAuth } = require("./middleware/authMiddlewre")
 const app = express()
 
 //middlewares
@@ -47,3 +48,8 @@ mongoose
 //     console.log(cookies)
 //     res.json(cookies)
 // })
+
+app.get('/auth' , requireAuth , (req , res) => {
+    res.send('User in!')
+    console.log("User in")
+})
