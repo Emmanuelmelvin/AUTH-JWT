@@ -5,12 +5,23 @@ const handleErrors = (err) => {
     let error = { email: "", password: "" }
 
     //validation errors
-    if (err.message.includes("user validation failed")) {
-        Object.values(err.errors)
-            .forEach(({properties}) => {
-                error[properties.path] = properties.message
-            });
+    if(error.message){
 
+        if (err.message.includes("user validation failed")) {
+            Object.values(err.errors)
+                .forEach(({properties}) => {
+                    error[properties.path] = properties.message
+                });
+    
+        }
+        if(err.message === "incorrect email address"){
+            error.password = "incorrect email address"
+            return error
+        }
+        if(err.message === "incorrect password"){
+            error.password = "incorrect password"
+            return error
+        }
     }
 
     // duplicate error code
@@ -18,6 +29,9 @@ const handleErrors = (err) => {
         error.email = "Email already exits!"
         return error;
     }
+    
+    //login errors
+    
     return error;
 }
 
@@ -57,6 +71,7 @@ exports.loginController = async (req, res) => {
         res.status(200).json({user:  user._id})
         
     }catch (error){
+        console.log(error.message)
         const errorObjext = handleErrors(error)
         res.status(401).json({
             status: "failed",
