@@ -72,11 +72,14 @@ exports.loginController = async (req, res) => {
     try {
         const user = await User.login(email, password)
         const token = createToken(user._id)
-        res.cookie('jwt', token, {
-            httpPnly: true,
-            maxAge: maxAge * 1000
-        })
-        res.status(200).json({ user: user._id })
+        
+        //this will be done on the frontend
+        // res.cookie('jwt', token, {
+        //     httpPnly: true,
+        //     maxAge: maxAge * 1000
+        // })
+        // res.setHeader('Set-cookies' , `jwt=${token}`)
+        res.status(200).json({ user: user._id , token })
 
     } catch (error) {
         console.log(error.message)

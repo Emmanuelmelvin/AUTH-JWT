@@ -11,6 +11,7 @@ const app = express()
 app.use(express.json())
 app.use(authRoutes)
 app.use(cookieParser())
+app.use(checkUser)
 
 const mongoURI = "mongodb://localhost:27017"
 
@@ -33,7 +34,6 @@ mongoose
 
 // app.get('/set-cookies', (req, res) => {
 //     //this creates a cookie with the name newuser and its value set to true
-//     // res.setHeader('Set-cookies' , 'newuser=trye')
 
 //     //after the using the cookieParser middleware, cookie can be assesed as a property in the res object
 //     res.cookie('newUser' , false , {
@@ -54,4 +54,13 @@ app.get('/auth' , requireAuth , (req , res) => {
     res.send('User in!')
     console.log("User in")
 })
-app.get('*' , checkUser)
+
+app.get('/posts', (req, res) => {
+    const user = res.locals.user;
+
+    if (user) {
+        res.send(`Welcome, ${user.username}`);
+    } else {
+        res.send('Please log in to access the dashboard.');
+    }
+});
