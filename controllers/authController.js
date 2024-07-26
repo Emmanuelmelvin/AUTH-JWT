@@ -47,22 +47,26 @@ const createToken = (id) => {
 
 exports.signupController = async (req, res) => {
     const { email, password } = req.body
-    const user = res.locals.user
-    if(user){
-        return res.json({
-            status: "loggedin"
-        })
-    }
+    const isUser = res.locals.user
     try {
+        if(isUser){
+            return res.json({
+                status: "loggedin"
+            })
+        }
+
         const user = await User.create({ email, password })
-        const token = createToken(user._id)
-        res.cookie('jwt', token, {
-            httpOnly: true,
-            maxAge: maxAge * 1000
-        })
-        res.status(201).json({
-            status: "success",
-        })
+        // const token = createToken(user._id)
+        // res.cookie('jwt', token, {
+        //     httpOnly: true,
+        //     maxAge: maxAge * 1000
+        // })
+        if(user){
+            res.status(201).json({
+                status: "success",
+            })
+        }
+        throw Error("server error, try again later")
     } catch (error) {
         const errorObjext = handleErrors(error)
         res.status(401).json({
