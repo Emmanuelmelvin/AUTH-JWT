@@ -9,9 +9,9 @@ const app = express()
 
 //middlewares
 app.use(express.json())
-app.use(authRoutes)
 app.use(cookieParser())
 app.use(checkUser)
+app.use(authRoutes)
 
 const mongoURI = "mongodb://localhost:27017"
 
@@ -59,7 +59,7 @@ app.get('/posts', (req, res) => {
     const user = res.locals.user;
 
     if (user) {
-        res.send(`Welcome, ${user.username}`);
+        res.send(`Welcome, ${user.email}`);
     } else {
         res.send('Please log in to access the dashboard.');
     }

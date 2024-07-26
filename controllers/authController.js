@@ -47,7 +47,12 @@ const createToken = (id) => {
 
 exports.signupController = async (req, res) => {
     const { email, password } = req.body
-
+    const user = res.locals.user
+    if(user){
+        return res.json({
+            status: "loggedin"
+        })
+    }
     try {
         const user = await User.create({ email, password })
         const token = createToken(user._id)
@@ -69,17 +74,24 @@ exports.signupController = async (req, res) => {
 
 exports.loginController = async (req, res) => {
     const { email, password } = req.body
+    const isUser = res.locals.user
     try {
+        if(isUser){
+            return res.json({
+                status: "loggedin"
+            })
+        }
+
         const user = await User.login(email, password)
         const token = createToken(user._id)
         
-        //this will be done on the frontend
-        // res.cookie('jwt', token, {
-        //     httpPnly: true,
-        //     maxAge: maxAge * 1000
-        // })
-        // res.setHeader('Set-cookies' , `jwt=${token}`)
+        // this will be done on the frontend
+        res.cookie('jwt', token, {
+            httpPnly: true,
+            maxAge: maxAge * 1000
+        })
         res.status(200).json({ user: user._id , token })
+        // res.setHeader('Set-cookies' , `jwt=${token}`)
 
     } catch (error) {
         console.log(error.message)
