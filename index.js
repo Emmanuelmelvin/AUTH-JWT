@@ -50,6 +50,7 @@ mongoose
 //     res.json(cookies)
 // })
 
+//route
 app.get('/auth' , requireAuth , (req , res) => {
     res.send('User in!')
     console.log("User in")
