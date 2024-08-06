@@ -18,7 +18,7 @@ const mongoURI = "mongodb://localhost:27017"
 mongoose
     .connect(mongoURI)
     .then((result) => {
-        console.log("mongo active!")
+        console.log("mongodb active!")
         app.listen(3000)
     })
     .catch((error) => { console.log(error) })
@@ -56,7 +56,7 @@ app.get('/auth' , requireAuth , (req , res) => {
     console.log("User in")
 })
 
-app.get('/posts', (req, res) => {
+app.get('/post', (req, res) => {
     const user = res.locals.user;
 
     if (user) {
