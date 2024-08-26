@@ -7,7 +7,7 @@ const { requireAuth } = require("./middleware/authMiddlewre")
 const checkUser = require("./middleware/checkUser")
 const app = express()
 
-//middlewares
+//middle
 app.use(express.json())
 app.use(cookieParser())
 app.use(checkUser)
@@ -30,7 +30,7 @@ mongoose
 
 // app.get('/', (req, res) => {
 //     res.send("Active")
-// })
+// })++b
 
 // app.get('/set-cookies', (req, res) => {
 //     //this creates a cookie with the name newuser and its value set to true
