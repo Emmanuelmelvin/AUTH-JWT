@@ -19,7 +19,7 @@ mongoose
     .connect(mongoURI)
     .then((result) => {
         console.log("mongodb active!")
-        app.listen(3000)
+        app.listen(8080)
     })
     .catch((error) => { console.log(error) })
 
